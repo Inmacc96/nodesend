@@ -1,9 +1,10 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 exports.authenticateUser = async (req, res, next) => {
   // Revisar si hay errores
   // Buscar el usuario para ver si está registrado
-  const { email } = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -13,7 +14,13 @@ exports.authenticateUser = async (req, res, next) => {
   }
 
   // Verificar el password y autenticar el usuario
-  
+  if (bcrypt.compareSync(password, user.password)) {
+    //Crear JWT
+  } else {
+    const error = new Error("The password is incorrect");
+    res.status(401).json({ msg: error.message });
+    return next();
+  }
 };
 
 exports.authenticatedUser = (req, res) => {};
