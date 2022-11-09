@@ -8,6 +8,9 @@ const app = express();
 // Conectar a la base de datos
 connectDB();
 
+// Habilitar leer los valores de un body
+app.use(express.json());
+
 // Rutas de la app
 app.use("/api/users", userRoutes);
 
