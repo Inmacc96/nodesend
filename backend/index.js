@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const linksRoutes = require("./routes/linksRoutes");
 
 // Crear el servidor
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 // Rutas de la app
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/links", linksRoutes);
 
 // Puerto de la app
 const port = process.env.PORT || 4000;
