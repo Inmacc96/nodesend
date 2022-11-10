@@ -65,7 +65,17 @@ exports.getLink = async (req, res, next) => {
   res.json({ file: link.name });
 
   // Si las descargas son iguales a 1 - Borrar la entrada y borrar el archivo
+  const { downloads, name } = link;
+  if (downloads === 1) {
+    // Eliminar el archivo
+    req.file = name;
+    next(); // Se va hacia el controlador de files a la función deleteFile
 
-  // Si las descargas son > a 1 - Restarle 1
-
+    // Eliminar la entrada de la bd
+    await Links.findOneAndDelete({ url });
+  } else {
+    // Si las descargas son > a 1 - Restarle 1
+    link.downloads--;
+    await link.save();
+  }
 };
