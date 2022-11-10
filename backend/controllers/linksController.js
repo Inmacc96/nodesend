@@ -48,3 +48,24 @@ exports.createLink = async (req, res, next) => {
     console.log(err);
   }
 };
+
+// Obtener el enlace
+exports.getLink = async (req, res, next) => {
+  const { url } = req.params;
+  // Verificar si existe el enlace
+  const link = await Links.findOne({ url });
+
+  if (!link) {
+    const error = new Error("This link doesn't exist");
+    res.status(404).json({ msg: error.message });
+    return next();
+  }
+
+  // Si el enlace existe
+  res.json({ file: link.name });
+
+  // Si las descargas son iguales a 1 - Borrar la entrada y borrar el archivo
+
+  // Si las descargas son > a 1 - Restarle 1
+
+};
