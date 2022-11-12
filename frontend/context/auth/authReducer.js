@@ -3,6 +3,7 @@ import {
   SUCCESSFUL_REGISTER,
   ERROR_REGISTER,
   CLEAN_ALERT,
+  SUCCESS_LOGIN,
   ERROR_LOGIN,
   AUTHENTICATED_USER,
 } from "../../types";
@@ -16,6 +17,11 @@ const authReducer = (state, action) => {
       return {
         ...state,
         message: action.payload,
+      };
+    case SUCCESS_LOGIN:
+      return {
+        ...state,
+        token: action.payload,
       };
     case AUTHENTICATED_USER:
       return {
