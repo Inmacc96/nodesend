@@ -48,7 +48,7 @@ const AuthState = ({ children }) => {
       setTimeout(() => {
         dispatch({
           type: CLEAN_ALERT,
-          payload: "",
+          payload: null,
         });
       }, 3000);
     }
