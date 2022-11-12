@@ -17,7 +17,7 @@ import clientAxios from "../../config/axios";
 const AuthState = ({ children }) => {
   //Definir un state inicial
   const initialState = {
-    token: "",
+    token: typeof window !== "undefined" ? localStorage.getItem("token") : "",
     isAuth: null,
     user: null,
     message: null,
