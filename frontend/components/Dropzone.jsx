@@ -26,6 +26,20 @@ const Dropzone = () => {
 
   return (
     <div className="md:flex-1 mb-3 mx-2 mt-16 lg:mt-0 flex flex-col justify-center items-center border-dashed border-gray-400 border-2 bg-gray-100 px-4">
+      <ul>
+        {acceptedFiles.map((file) => (
+          <li
+            key={file.lastModified}
+            className="bg-white flex-1 p-3 mb-4 shadow-lg rounded"
+          >
+            <p className="font-bold text-xl">{file.path}</p>
+            <p className="text-sm text-gray-500">
+              {(file.size / Math.pow(1024, 2)).toFixed(2)} MB
+            </p>
+          </li>
+        ))}
+      </ul>
+
       <div {...getRootProps({ className: "dropzone w-full py-32" })}>
         <input className="h-100" {...getInputProps()} />
 
