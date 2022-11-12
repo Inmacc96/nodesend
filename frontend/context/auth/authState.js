@@ -3,7 +3,7 @@ import { useReducer } from "react";
 import authContext from "./authContext";
 import authReducer from "./authReducer";
 
-import { AUTHENTICATED_USER } from "../../types";
+import { SUCCESSFUL_REGISTER, AUTHENTICATED_USER } from "../../types";
 
 import clientAxios from "../../config/axios";
 
@@ -24,8 +24,13 @@ const AuthState = ({ children }) => {
   // Registrar nuevos usuarios en la BD
   const signupUser = async (data) => {
     try {
-      const response = await clientAxios.post("/users", data);
-      console.log(response);
+      const {
+        data: { msg },
+      } = await clientAxios.post("/users", data);
+      dispatch({
+        type: SUCCESSFUL_REGISTER,
+        payload: msg,
+      });
     } catch (err) {
       console.log(err);
     }
