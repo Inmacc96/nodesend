@@ -69,6 +69,14 @@ const AuthState = ({ children }) => {
         type: ERROR_LOGIN,
         payload: err.response.data.msg,
       });
+    } finally {
+      //Limpiar la alerta después de 3 segundos
+      setTimeout(() => {
+        dispatch({
+          type: CLEAN_ALERT,
+          payload: null,
+        });
+      }, 3000);
     }
   };
 
