@@ -4,7 +4,18 @@ import clientAxios from "../config/axios";
 
 const Dropzone = () => {
   // La subida genera muchos re-renders(se sube bytes por bytes), por ello usamos useCallback
-  const onDrop = useCallback((acceptedFiles) => console.log(acceptedFiles), []);
+  const onDrop = useCallback(async (acceptedFiles) => {
+    // Crear un form data
+    const formData = new FormData();
+    formData.append("file", acceptedFiles[0]);
+
+    try {
+      const response = await clientAxios.post("/files", formData);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   // Extraer contenido de dropzone
   // isDragActive: Detecta cuando el usuario hace el evento de drag
