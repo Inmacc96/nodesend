@@ -3,6 +3,7 @@ import {
   SUCCESSFUL_REGISTER,
   ERROR_REGISTER,
   CLEAN_ALERT,
+  ERROR_LOGIN,
   AUTHENTICATED_USER,
 } from "../../types";
 
@@ -10,6 +11,7 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case SUCCESSFUL_REGISTER:
     case ERROR_REGISTER:
+    case ERROR_LOGIN:
     case CLEAN_ALERT:
       return {
         ...state,

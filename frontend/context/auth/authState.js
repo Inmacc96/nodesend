@@ -7,6 +7,7 @@ import {
   SUCCESSFUL_REGISTER,
   ERROR_REGISTER,
   CLEAN_ALERT,
+  ERROR_LOGIN,
   AUTHENTICATED_USER,
 } from "../../types";
 
@@ -60,7 +61,10 @@ const AuthState = ({ children }) => {
       } = await clientAxios.post("/auth", data);
       console.log(token);
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: ERROR_LOGIN,
+        payload: err.response.data.msg,
+      });
     }
   };
 

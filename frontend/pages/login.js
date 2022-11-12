@@ -2,10 +2,11 @@ import { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import authContext from "../context/auth/authContext";
+import Alert from "../components/Alert";
 
 const Login = () => {
   // Context
-  const { logIn } = useContext(authContext);
+  const { logIn, message } = useContext(authContext);
 
   // Formulario y validación
   const formik = useFormik({
@@ -27,6 +28,8 @@ const Login = () => {
       <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">
         Log In
       </h2>
+
+      {message && <Alert message={message} />}
 
       <div className="flex justify-center mt-5">
         <div className="w-full max-w-lg">
