@@ -1,7 +1,13 @@
+import { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import authContext from "../context/auth/authContext";
 
 const Login = () => {
+  // Context
+  const { logIn } = useContext(authContext);
+
+  // Formulario y validación
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -12,7 +18,7 @@ const Login = () => {
       password: Yup.string().required("Password is required"),
     }),
     onSubmit: (value) => {
-      console.log(value);
+      logIn(value);
     },
   });
 

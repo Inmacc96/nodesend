@@ -52,6 +52,18 @@ const AuthState = ({ children }) => {
     }
   };
 
+  // Autenticar usuarios
+  const logIn = async (data) => {
+    try {
+      const {
+        data: { token },
+      } = await clientAxios.post("/auth", data);
+      console.log(token);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // Usuario autenticado
   //payload: son los datos que van a modificar el state
   const authenticatedUser = (name) => {
@@ -69,6 +81,7 @@ const AuthState = ({ children }) => {
         user: state.user,
         message: state.message,
         signupUser,
+        logIn,
         authenticatedUser,
       }}
     >
