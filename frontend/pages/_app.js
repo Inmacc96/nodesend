@@ -1,11 +1,14 @@
 import "../styles/tailwind.css";
 import Layout from "../components/Layout";
+import AuthState from "../context/auth/authState";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <AuthState>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthState>
   );
 }
 
