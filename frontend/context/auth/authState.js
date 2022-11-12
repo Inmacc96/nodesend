@@ -6,6 +6,7 @@ import authReducer from "./authReducer";
 import {
   SUCCESSFUL_REGISTER,
   ERROR_REGISTER,
+  CLEAN_ALERT,
   AUTHENTICATED_USER,
 } from "../../types";
 
@@ -40,6 +41,14 @@ const AuthState = ({ children }) => {
         type: ERROR_REGISTER,
         payload: err.response.data.msg,
       });
+    } finally {
+      //Limpiar la alerta después de 3 segundos
+      setTimeout(() => {
+        dispatch({
+          type: CLEAN_ALERT,
+          payload: "",
+        });
+      }, 3000);
     }
   };
 
