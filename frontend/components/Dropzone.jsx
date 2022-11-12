@@ -1,10 +1,13 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import clientAxios from "../config/axios";
 
 const Dropzone = () => {
+  const onDropRejected = () => {
+    console.log("Could not upload");
+  };
   // La subida genera muchos re-renders(se sube bytes por bytes), por ello usamos useCallback
-  const onDrop = useCallback(async (acceptedFiles) => {
+  const onDropAccepted = useCallback(async (acceptedFiles) => {
     // Crear un form data
     const formData = new FormData();
     formData.append("file", acceptedFiles[0]);
@@ -21,8 +24,13 @@ const Dropzone = () => {
   // isDragActive: Detecta cuando el usuario hace el evento de drag
   // onDrop: Funcion que se ejecuta cuando sueltas un archivo
   // acceptedFiles: Para leer los archivos que se van subiendo
+  // onDrop se ejecuta todas la veces sin ningúna validación,
+  // onDropAccepted: todos los que pasen ciertas reglas
+  // onDropReject: caen los archivos que han sido rechazados bajo ciertas reglas
+  // Reglas puede ser: Un formato, un tamaño de archivo minimo o máximo
+  // La regla en este caso es que el maximo de tamaño es 1mb
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
-    useDropzone({ onDrop });
+    useDropzone({ onDropAccepted, onDropRejected, maxSize: 1024 * 1024 });
 
   const createLink = () => {};
 
