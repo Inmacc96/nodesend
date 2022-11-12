@@ -3,7 +3,11 @@ import { useReducer } from "react";
 import authContext from "./authContext";
 import authReducer from "./authReducer";
 
-import { SUCCESSFUL_REGISTER, AUTHENTICATED_USER } from "../../types";
+import {
+  SUCCESSFUL_REGISTER,
+  ERROR_REGISTER,
+  AUTHENTICATED_USER,
+} from "../../types";
 
 import clientAxios from "../../config/axios";
 
@@ -32,7 +36,10 @@ const AuthState = ({ children }) => {
         payload: msg,
       });
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: ERROR_REGISTER,
+        payload: err.response.data.msg,
+      });
     }
   };
 
