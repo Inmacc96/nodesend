@@ -6,6 +6,7 @@ import {
   SUCCESS_LOGIN,
   ERROR_LOGIN,
   AUTHENTICATED_USER,
+  LOG_OUT,
 } from "../../types";
 
 const authReducer = (state, action) => {
@@ -29,6 +30,14 @@ const authReducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case LOG_OUT:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        user: null,
+        token: null,
+        isAuth: null,
       };
     default:
       return state;

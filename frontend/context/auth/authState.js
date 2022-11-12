@@ -10,6 +10,7 @@ import {
   SUCCESS_LOGIN,
   ERROR_LOGIN,
   AUTHENTICATED_USER,
+  LOG_OUT,
 } from "../../types";
 
 import clientAxios from "../../config/axios";
@@ -102,6 +103,13 @@ const AuthState = ({ children }) => {
     }
   };
 
+  // Cerrar sesión
+  const logOut = () => {
+    dispatch({
+      type: "LOG_OUT",
+    });
+  };
+
   return (
     <authContext.Provider
       value={{
@@ -112,6 +120,7 @@ const AuthState = ({ children }) => {
         signupUser,
         logIn,
         getAuthenticatedUser,
+        logOut,
       }}
     >
       {children}
