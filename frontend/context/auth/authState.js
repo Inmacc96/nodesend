@@ -5,6 +5,8 @@ import authReducer from "./authReducer";
 
 import { AUTHENTICATED_USER } from "../../types";
 
+import clientAxios from "../../config/axios";
+
 const AuthState = ({ children }) => {
   //Definir un state inicial
   const initialState = {
@@ -20,9 +22,13 @@ const AuthState = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Registrar nuevos usuarios en la BD
-  const signupUser = (data) => {
-    console.log("desde signupuser");
-    console.log(data);
+  const signupUser = async (data) => {
+    try {
+      const response = await clientAxios.post("/users", data);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // Usuario autenticado
