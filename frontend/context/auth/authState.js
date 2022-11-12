@@ -13,6 +13,7 @@ import {
 } from "../../types";
 
 import clientAxios from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 
 const AuthState = ({ children }) => {
   //Definir un state inicial
@@ -29,6 +30,8 @@ const AuthState = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Registrar nuevos usuarios en la BD
+  //payload: son los datos que van a modificar el state
+
   const signupUser = async (data) => {
     try {
       const {
@@ -80,13 +83,23 @@ const AuthState = ({ children }) => {
     }
   };
 
-  // Usuario autenticado
-  //payload: son los datos que van a modificar el state
-  const authenticatedUser = (name) => {
-    dispatch({
-      type: AUTHENTICATED_USER,
-      payload: name,
-    });
+  // Obtener el usuario autenticado en base al JWT
+  const getAuthenticatedUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      tokenAuth(token);
+    }
+    try {
+      const {
+        data: { user },
+      } = await clientAxios("/auth");
+      dispatch({
+        type: AUTHENTICATED_USER,
+        payload: user,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -98,7 +111,7 @@ const AuthState = ({ children }) => {
         message: state.message,
         signupUser,
         logIn,
-        authenticatedUser,
+        getAuthenticatedUser,
       }}
     >
       {children}
