@@ -19,6 +19,12 @@ const AuthState = ({ children }) => {
   // useReducer recibe la función reducer y el state inicial
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  // Registrar nuevos usuarios en la BD
+  const signupUser = (data) => {
+    console.log("desde signupuser");
+    console.log(data);
+  };
+
   // Usuario autenticado
   //payload: son los datos que van a modificar el state
   const authenticatedUser = (name) => {
@@ -35,6 +41,7 @@ const AuthState = ({ children }) => {
         isAuth: state.isAuth,
         user: state.user,
         message: state.message,
+        signupUser,
         authenticatedUser,
       }}
     >
