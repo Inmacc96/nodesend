@@ -9,6 +9,11 @@ import {
 
 const uploadReducer = (state, action) => {
   switch (action.type) {
+    case SHOW_ALERT:
+      return {
+        ...state,
+        msg_file: action.payload,
+      };
     default:
       return state;
   }

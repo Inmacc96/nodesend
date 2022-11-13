@@ -11,7 +11,22 @@ import {
 } from "../../types";
 
 const UploadState = ({ children }) => {
-  return <uploadContext.Provider value={{}}>{children}</uploadContext.Provider>;
+  const initialState = {
+    msg_file: "",
+  };
+
+  // Crear state y dispatch
+  const [state, dispatch] = useReducer(uploadReducer, initialState);
+
+  // Muestra una alerta
+  const showAlert = (msg) => {
+    dispatch({ type: SHOW_ALERT, payload: msg });
+  };
+  return (
+    <uploadContext.Provider value={{ msg_file: state.msg_file, showAlert }}>
+      {children}
+    </uploadContext.Provider>
+  );
 };
 
 export default UploadState;

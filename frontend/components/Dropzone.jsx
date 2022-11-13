@@ -1,10 +1,14 @@
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import { useDropzone } from "react-dropzone";
+import uploadContext from "../context/upload/uploadContext";
 import clientAxios from "../config/axios";
 
 const Dropzone = () => {
+  // Context UploadContext
+  const { showAlert } = useContext(uploadContext);
+
   const onDropRejected = () => {
-    console.log("Could not upload");
+    showAlert("Could not upload");
   };
   // La subida genera muchos re-renders(se sube bytes por bytes), por ello usamos useCallback
   const onDropAccepted = useCallback(async (acceptedFiles) => {
