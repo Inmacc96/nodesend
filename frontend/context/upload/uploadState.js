@@ -18,6 +18,10 @@ const UploadState = ({ children }) => {
     name: "",
     name_original: "",
     loading: null,
+    downloads: 1,
+    password: "",
+    author: null,
+    url: "",
   };
 
   // Crear state y dispatch
@@ -43,9 +47,30 @@ const UploadState = ({ children }) => {
         payload: { name: response.data.file, name_original: nameFile },
       });
     } catch (err) {
-      dispatch({ type: UPLOAD_FILE_ERROR, payload: error.response.data.msg });
+      dispatch({ type: UPLOAD_FILE_ERROR, payload: err.response.data.msg });
     }
   };
+
+  // Crea un enkace una vez que se subió el archivo
+  const createLink = async () => {
+    const data = {
+      name: state.name,
+      name_original: state.name_original,
+      downloads: state.downloads,
+      password: state.password,
+    };
+
+    try {
+      const response = await clientAxios.post("/links", data);
+      dispatch({
+        type: CREATE_LINK_SUCCESS,
+        payload: response.data.msg,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <uploadContext.Provider
       value={{
@@ -53,8 +78,13 @@ const UploadState = ({ children }) => {
         name: state.name,
         name_original: state.name_original,
         loading: state.loading,
+        downloads: state.downloads,
+        password: state.password,
+        author: state.author,
+        url: state.url,
         showAlert,
         uploadFiles,
+        createLink,
       }}
     >
       {children}

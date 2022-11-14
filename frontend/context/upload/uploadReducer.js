@@ -37,6 +37,11 @@ const uploadReducer = (state, action) => {
         msg_file: action.payload,
         loading: null,
       };
+    case CREATE_LINK_SUCCESS:
+      return {
+        ...state,
+        url: action.payload,
+      };
 
     default:
       return state;

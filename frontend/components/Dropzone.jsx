@@ -4,7 +4,7 @@ import uploadContext from "../context/upload/uploadContext";
 
 const Dropzone = () => {
   // Context UploadContext
-  const { showAlert, uploadFiles, loading } = useContext(uploadContext);
+  const { showAlert, uploadFiles, loading, createLink } = useContext(uploadContext);
 
   const onDropRejected = () => {
     showAlert(
@@ -31,8 +31,6 @@ const Dropzone = () => {
   // La regla en este caso es que el maximo de tamaño es 1mb
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({ onDropAccepted, onDropRejected, maxSize: 1024 * 1024 });
-
-  const createLink = () => {};
 
   return (
     <div className="md:flex-1 mb-3 mx-2 mt-16 lg:mt-0 flex flex-col justify-center items-center border-dashed border-gray-400 border-2 bg-gray-100 px-4">
