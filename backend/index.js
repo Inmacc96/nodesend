@@ -12,6 +12,8 @@ const app = express();
 // Conectar a la base de datos
 const whiteList = [process.env.FRONTEND_URL];
 
+connectDB();
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (whiteList.includes(origin)) {
@@ -23,8 +25,6 @@ const corsOptions = {
     }
   },
 };
-
-connectDB();
 
 // Habilitar CORS
 app.use(cors(corsOptions));
