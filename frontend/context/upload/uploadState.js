@@ -12,7 +12,7 @@ import {
 
 const UploadState = ({ children }) => {
   const initialState = {
-    msg_file: "",
+    msg_file: null
   };
 
   // Crear state y dispatch
@@ -21,6 +21,10 @@ const UploadState = ({ children }) => {
   // Muestra una alerta
   const showAlert = (msg) => {
     dispatch({ type: SHOW_ALERT, payload: msg });
+
+    setTimeout(() => {
+      dispatch({ type: CLEAN_ALERT, payload: null });
+    }, 3000);
   };
   return (
     <uploadContext.Provider value={{ msg_file: state.msg_file, showAlert }}>

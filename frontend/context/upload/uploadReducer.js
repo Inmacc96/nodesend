@@ -10,6 +10,7 @@ import {
 const uploadReducer = (state, action) => {
   switch (action.type) {
     case SHOW_ALERT:
+    case CLEAN_ALERT:
       return {
         ...state,
         msg_file: action.payload,
