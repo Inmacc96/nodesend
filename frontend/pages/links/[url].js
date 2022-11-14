@@ -2,7 +2,7 @@ import clientAxios from "../../config/axios";
 
 // Los props estáticos van a ser la respuesta que vamos a obtener.
 //Ejemplo: Visito una url y obtenemos el registro de ese link de la bd
-export async function getStaticProps(props) {
+export async function getServerSideProps(props) {
   const {
     params: { url },
   } = props;
@@ -21,7 +21,7 @@ export async function getStaticProps(props) {
 
 // Static Path es el routing
 // Va a generar todas las urls de todos los links de la db
-export async function getStaticPaths() {
+export async function getSeverSidePaths() {
   try {
     const { data } = await clientAxios("/links");
     return {
