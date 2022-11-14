@@ -52,8 +52,8 @@ exports.createLink = async (req, res, next) => {
 // Obtiene un listado de todos los enlaces
 exports.getAllLinks = async (req, res) => {
   try {
-    const links = await Links.find({});
-    res.json(links);
+    const links = await Links.find({}).select("url -_id");
+    res.json({links});
   } catch (err) {
     console.log(err);
   }
