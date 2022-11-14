@@ -11,11 +11,11 @@ exports.createLink = async (req, res, next) => {
   }
 
   // Crear un objeto de Enlace
-  const { name_original } = req.body;
+  const { name_original, name } = req.body;
 
   const link = new Links();
   link.url = shortid.generate();
-  link.name = shortid.generate();
+  link.name = name;
   link.name_original = name_original;
 
   // Si el usuario está autenticado
