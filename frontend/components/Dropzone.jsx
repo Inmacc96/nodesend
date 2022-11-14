@@ -1,14 +1,15 @@
 import { useCallback, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 import uploadContext from "../context/upload/uploadContext";
-import clientAxios from "../config/axios";
 
 const Dropzone = () => {
   // Context UploadContext
-  const { showAlert } = useContext(uploadContext);
+  const { showAlert, uploadFiles } = useContext(uploadContext);
 
   const onDropRejected = () => {
-    showAlert("The file could not be uploaded, the limit is 1MB. Get a free account for uploading larger files");
+    showAlert(
+      "The file could not be uploaded, the limit is 1MB. Get a free account for uploading larger files"
+    );
   };
   // La subida genera muchos re-renders(se sube bytes por bytes), por ello usamos useCallback
   const onDropAccepted = useCallback(async (acceptedFiles) => {
@@ -16,12 +17,7 @@ const Dropzone = () => {
     const formData = new FormData();
     formData.append("file", acceptedFiles[0]);
 
-    try {
-      const response = await clientAxios.post("/files", formData);
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
+    uploadFiles(formData, acceptedFiles[0].path);
   }, []);
 
   // Extraer contenido de dropzone
