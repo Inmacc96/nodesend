@@ -8,7 +8,7 @@ const Dropzone = () => {
   const { showAlert } = useContext(uploadContext);
 
   const onDropRejected = () => {
-    showAlert("Could not upload");
+    showAlert("The file could not be uploaded, the limit is 1MB. Get a free account for uploading larger files");
   };
   // La subida genera muchos re-renders(se sube bytes por bytes), por ello usamos useCallback
   const onDropAccepted = useCallback(async (acceptedFiles) => {

@@ -1,17 +1,25 @@
 import { useContext, useEffect } from "react";
 import Dropzone from "../components/Dropzone";
+import Alert from "../components/Alert";
 import authContext from "../context/auth/authContext";
+import uploadContext from "../context/upload/uploadContext";
 import Link from "next/link";
 
 const Home = () => {
   // Extraer el usuario autenticado del storage
   const { getAuthenticatedUser } = useContext(authContext);
 
+  // Extraer el mensaje de error de la subida
+  const { msg_file } = useContext(uploadContext);
+
   useEffect(() => {
     getAuthenticatedUser();
   }, []);
+
   return (
     <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
+      {msg_file && <Alert message={msg_file} />}
+
       <div className="lg:flex md:shadow-lg p-5 bg-white rounded-lg py-10">
         <Dropzone />
 
