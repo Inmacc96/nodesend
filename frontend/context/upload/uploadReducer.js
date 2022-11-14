@@ -1,6 +1,7 @@
 import {
   SHOW_ALERT,
   CLEAN_ALERT,
+  UPLOAD_FILE,
   UPLOAD_FILE_SUCCESS,
   UPLOAD_FILE_ERROR,
   CREATE_LINK_SUCCESS,
@@ -11,10 +12,15 @@ const uploadReducer = (state, action) => {
   switch (action.type) {
     case SHOW_ALERT:
     case CLEAN_ALERT:
-    case UPLOAD_FILE_ERROR:
       return {
         ...state,
         msg_file: action.payload,
+      };
+
+    case UPLOAD_FILE:
+      return {
+        ...state,
+        loading: true,
       };
 
     case UPLOAD_FILE_SUCCESS:
@@ -22,7 +28,16 @@ const uploadReducer = (state, action) => {
         ...state,
         name: action.payload.name,
         name_original: action.payload.name_original,
+        loading: null,
       };
+
+    case UPLOAD_FILE_ERROR:
+      return {
+        ...state,
+        msg_file: action.payload,
+        loading: null,
+      };
+
     default:
       return state;
   }

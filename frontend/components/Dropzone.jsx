@@ -4,7 +4,7 @@ import uploadContext from "../context/upload/uploadContext";
 
 const Dropzone = () => {
   // Context UploadContext
-  const { showAlert, uploadFiles } = useContext(uploadContext);
+  const { showAlert, uploadFiles, loading } = useContext(uploadContext);
 
   const onDropRejected = () => {
     showAlert(
@@ -53,13 +53,17 @@ const Dropzone = () => {
             ))}
           </ul>
 
-          <button
-            type="button"
-            className="bg-blue-700 w-full py-3 rounded-lg text-white my-10 hover:bg-blue-800"
-            onClick={createLink}
-          >
-            Create link
-          </button>
+          {loading ? (
+            <p className="my-10 text-center text-gray-600">Uploading file...</p>
+          ) : (
+            <button
+              type="button"
+              className="bg-blue-700 w-full py-3 rounded-lg text-white my-10 hover:bg-blue-800"
+              onClick={createLink}
+            >
+              Create link
+            </button>
+          )}
         </div>
       ) : (
         <div {...getRootProps({ className: "dropzone w-full py-32" })}>

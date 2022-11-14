@@ -5,6 +5,7 @@ import uploadReducer from "./uploadReducer";
 import {
   SHOW_ALERT,
   CLEAN_ALERT,
+  UPLOAD_FILE,
   UPLOAD_FILE_SUCCESS,
   UPLOAD_FILE_ERROR,
   CREATE_LINK_SUCCESS,
@@ -16,6 +17,7 @@ const UploadState = ({ children }) => {
     msg_file: null,
     name: "",
     name_original: "",
+    loading: null,
   };
 
   // Crear state y dispatch
@@ -32,6 +34,7 @@ const UploadState = ({ children }) => {
 
   // Sube los archivos al servidor
   const uploadFiles = async (formData, nameFile) => {
+    dispatch({ type: UPLOAD_FILE });
     try {
       const response = await clientAxios.post("/files", formData);
 
@@ -49,6 +52,7 @@ const UploadState = ({ children }) => {
         msg_file: state.msg_file,
         name: state.name,
         name_original: state.name_original,
+        loading: state.loading,
         showAlert,
         uploadFiles,
       }}
