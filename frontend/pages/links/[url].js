@@ -2,9 +2,12 @@ import clientAxios from "../../config/axios";
 
 // Los props estáticos van a ser la respuesta que vamos a obtener.
 //Ejemplo: Visito una url y obtenemos el registro de ese link de la bd
-export async function getStaticProps() {
+export async function getStaticProps(props) {
+  const {
+    params: { url },
+  } = props;
   try {
-    const { data } = await clientAxios("/links/HZVmt9-9D");
+    const { data } = await clientAxios(`/links/${url}`);
     return {
       props: {
         link: data,
