@@ -16,7 +16,7 @@ connectDB();
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whiteList.includes(origin)) {
+    if (!origin || whiteList.includes(origin)) {
       //Puede consultar la API
       callback(null, true);
     } else {
