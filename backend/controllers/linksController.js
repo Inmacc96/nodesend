@@ -41,7 +41,7 @@ exports.createLink = async (req, res, next) => {
   // Almacenar el enlace en la base de datos
   try {
     await link.save();
-    console.log(link);
+    /* console.log(link); */
     res.json({ msg: `${link.url}` });
     return next();
   } catch (err) {
@@ -53,7 +53,7 @@ exports.createLink = async (req, res, next) => {
 exports.getAllLinks = async (req, res) => {
   try {
     const links = await Links.find({}).select("url -_id");
-    res.json({links});
+    res.json({ links });
   } catch (err) {
     console.log(err);
   }
@@ -73,19 +73,4 @@ exports.getLink = async (req, res, next) => {
 
   // Si el enlace existe
   res.json({ file: link.name });
-
-  // Si las descargas son iguales a 1 - Borrar la entrada y borrar el archivo
-  const { downloads, name } = link;
-  if (downloads === 1) {
-    // Eliminar el archivo
-    req.file = name;
-    next(); // Se va hacia el controlador de files a la función deleteFile
-
-    // Eliminar la entrada de la bd
-    await Links.findOneAndDelete({ url });
-  } else {
-    // Si las descargas son > a 1 - Restarle 1
-    link.downloads--;
-    await link.save();
-  }
 };

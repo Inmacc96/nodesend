@@ -1,6 +1,7 @@
 const multer = require("multer");
 const shortid = require("shortid");
 const fs = require("fs");
+const Links = require("../models/Links");
 
 exports.uploadFiles = async (req, res, next) => {
   const fileStorage = multer.diskStorage({
@@ -37,8 +38,6 @@ exports.uploadFiles = async (req, res, next) => {
 };
 
 exports.deleteFile = async (req, res) => {
-  console.log(req.file);
-
   try {
     fs.unlinkSync(__dirname + `/../uploads/${req.file}`);
     console.log("Deleted file");
@@ -47,7 +46,29 @@ exports.deleteFile = async (req, res) => {
   }
 };
 
-exports.downloadFile = async (req, res) => {
-  const file = "uploads/" + req.params.file;
-  res.download(file);
+exports.downloadFile = async (req, res, next) => {
+  const { file } = req.params;
+
+  // Descarga del archivo
+  const fileRoute = "uploads/" + file;
+  res.download(fileRoute);
+
+  // Eliminar el archivo y la entrada de la base de datos
+  // Obtiene el enlace
+  const link = await Links.findOne({ name: file });
+
+  // Si las descargas son iguales a 1 - Borrar la entrada y borrar el archivo
+  const { downloads, name, id } = link;
+  if (downloads === 1) {
+    // Eliminar el archivo
+    req.file = name;
+    next(); // Se va hacia el controlador de files a la función deleteFile
+
+    // Eliminar la entrada de la bd
+    await Links.findOneAndDelete(id);
+  } else {
+    // Si las descargas son > a 1 - Restarle 1
+    link.downloads--;
+    await link.save();
+  }
 };
