@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 const Form = () => {
+  const [passwordEnabled, setPasswordEnabled] = useState(false);
+
   return (
     <div className="w-ful mt-20">
       <div>
@@ -12,6 +16,23 @@ const Form = () => {
           <option value="10"> 10 Downloads</option>
           <option value="20"> 20 Downloads</option>
         </select>
+      </div>
+
+      <div className="mt-4">
+        <div className="flex justify-between items-center">
+          <label className="text-lg text-gray-800 mr-2">Password protect</label>
+          <input
+            type="checkbox"
+            onChange={() => setPasswordEnabled(!passwordEnabled)}
+          />
+        </div>
+
+        {passwordEnabled && (
+          <input
+            type="password"
+            className="appearance-none w-full mt-2 bg-white border border-gray-400  text-black py-3 px-4 pr-8 rounded leading-none focus: outline-none focus:border-gray-500"
+          />
+        )}
       </div>
     </div>
   );
