@@ -30,6 +30,7 @@ const authReducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
+        isAuth: true,
       };
     case LOG_OUT:
       localStorage.removeItem("token");
