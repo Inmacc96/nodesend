@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import uploadContext from "../context/upload/uploadContext";
 
 const Form = () => {
   const [passwordEnabled, setPasswordEnabled] = useState(false);
+
+  const { password, savePassword } = useContext(uploadContext);
 
   return (
     <div className="w-ful mt-20">
@@ -31,6 +34,8 @@ const Form = () => {
           <input
             type="password"
             className="appearance-none w-full mt-2 bg-white border border-gray-400  text-black py-3 px-4 pr-8 rounded leading-none focus: outline-none focus:border-gray-500"
+            value={password}
+            onChange={(e) => savePassword(e.target.value)}
           />
         )}
       </div>
