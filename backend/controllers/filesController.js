@@ -46,3 +46,8 @@ exports.deleteFile = async (req, res) => {
     console.log(err);
   }
 };
+
+exports.downloadFile = async (req, res) => {
+  const file = "uploads/" + req.params.file;
+  res.download(file);
+};
