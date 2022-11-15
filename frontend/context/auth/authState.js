@@ -37,7 +37,7 @@ const AuthState = ({ children }) => {
     try {
       const {
         data: { msg },
-      } = await clientAxios.post("/users", data);
+      } = await clientAxios.post("/api/users", data);
       dispatch({
         type: SUCCESSFUL_REGISTER,
         payload: msg,
@@ -63,7 +63,7 @@ const AuthState = ({ children }) => {
     try {
       const {
         data: { token },
-      } = await clientAxios.post("/auth", data);
+      } = await clientAxios.post("/api/auth", data);
       dispatch({
         type: SUCCESS_LOGIN,
         payload: token,
@@ -93,7 +93,7 @@ const AuthState = ({ children }) => {
     try {
       const {
         data: { user },
-      } = await clientAxios("/auth");
+      } = await clientAxios("/api/auth");
       dispatch({
         type: AUTHENTICATED_USER,
         payload: user,

@@ -40,7 +40,7 @@ const UploadState = ({ children }) => {
   const uploadFiles = async (formData, nameFile) => {
     dispatch({ type: UPLOAD_FILE });
     try {
-      const response = await clientAxios.post("/files", formData);
+      const response = await clientAxios.post("/api/files", formData);
 
       dispatch({
         type: UPLOAD_FILE_SUCCESS,
@@ -61,7 +61,7 @@ const UploadState = ({ children }) => {
     };
 
     try {
-      const response = await clientAxios.post("/links", data);
+      const response = await clientAxios.post("/api/links", data);
       dispatch({
         type: CREATE_LINK_SUCCESS,
         payload: response.data.msg,
