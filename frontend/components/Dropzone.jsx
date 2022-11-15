@@ -2,6 +2,7 @@ import { useCallback, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 import authContext from "../context/auth/authContext";
 import uploadContext from "../context/upload/uploadContext";
+import Form from "./Form";
 
 const Dropzone = () => {
   // Context uploadContext
@@ -56,7 +57,7 @@ const Dropzone = () => {
             ))}
           </ul>
 
-          {isAuth ? <p>Is authenticated</p> : ""}
+          {isAuth ? <Form /> : ""}
 
           {loading ? (
             <p className="my-10 text-center text-gray-600">Uploading file...</p>
