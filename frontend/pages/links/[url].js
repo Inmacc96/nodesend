@@ -7,7 +7,7 @@ export async function getServerSideProps(props) {
     params: { url },
   } = props;
   try {
-    const { data } = await clientAxios(`/links/${url}`);
+    const { data } = await clientAxios(`/api/links/${url}`);
     return {
       props: {
         link: data,
@@ -23,7 +23,7 @@ export async function getServerSideProps(props) {
 // Va a generar todas las urls de todos los links de la db
 export async function getSeverSidePaths() {
   try {
-    const { data } = await clientAxios("/links");
+    const { data } = await clientAxios("/api/links");
     return {
       paths: data.links.map((link) => ({
         params: { url: link.url },
@@ -45,7 +45,21 @@ export async function getSeverSidePaths() {
 
 const Links = ({ link }) => {
   console.log(link);
-  return <div>Links</div>;
+  return (
+    <>
+      <h1 className="text-4xl text-center text-gray-700">
+        Download your file:
+      </h1>
+      <div className="flex items-center justify-center mt-10">
+        <a
+          href={`${process.env.backendURL}/api/files/${link.file}`}
+          className="bg-red-500 text-center px-10 py-3 rounded uppercase font-bold text-white cursor-pointer"
+        >
+          Here
+        </a>
+      </div>
+    </>
+  );
 };
 
 export default Links;
