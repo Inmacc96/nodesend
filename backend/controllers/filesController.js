@@ -50,8 +50,8 @@ exports.downloadFile = async (req, res, next) => {
   const { file } = req.params;
 
   // Descarga del archivo
-  const fileRoute = "uploads/" + file;
-  res.download(fileRoute);
+  const filePath = "uploads/" + file;
+  res.download(filePath);
 
   // Eliminar el archivo y la entrada de la base de datos
   // Obtiene el enlace
