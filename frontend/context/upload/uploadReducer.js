@@ -8,6 +8,7 @@ import {
   CREATE_LINK_ERROR,
   CLEAN_STATE,
   SAVE_PASSWORD,
+  SAVE_NDOWNLOADS,
 } from "../../types";
 
 const uploadReducer = (state, action) => {
@@ -62,6 +63,12 @@ const uploadReducer = (state, action) => {
       return {
         ...state,
         password: action.payload,
+      };
+
+    case SAVE_NDOWNLOADS:
+      return {
+        ...state,
+        downloads: action.payload,
       };
     default:
       return state;

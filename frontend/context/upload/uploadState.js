@@ -73,12 +73,19 @@ const UploadState = ({ children }) => {
     }
   };
 
+  // Inicializa el valor del state
   const cleanState = () => {
     dispatch({ type: "CLEAN_STATE" });
   };
 
+  // Guardar el password en el state
   const savePassword = (password) => {
     dispatch({ type: "SAVE_PASSWORD", payload: password });
+  };
+
+  // Guardar el número de descargas en el state
+  const saveNDownloads = (nDownloads) => {
+    dispatch({ type: "SAVE_NDOWNLOADS", payload: nDownloads });
   };
 
   return (
@@ -96,7 +103,8 @@ const UploadState = ({ children }) => {
         uploadFiles,
         createLink,
         cleanState,
-        savePassword
+        savePassword,
+        saveNDownloads,
       }}
     >
       {children}
