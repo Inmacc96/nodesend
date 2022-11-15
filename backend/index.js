@@ -32,6 +32,9 @@ app.use(cors(corsOptions));
 // Habilitar leer los valores de un body
 app.use(express.json());
 
+// Habilitar carpeta pública
+app.use("/static", express.static("uploads"));
+
 // Rutas de la app
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
