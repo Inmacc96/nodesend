@@ -72,10 +72,29 @@ exports.checkPassword = async (req, res, next) => {
   }
 
   if (link.password) {
-    return res.json({ password: true, link: link.url });
+    return res.json({ password: true, url: link.url });
   }
 
   next();
+};
+
+// Verifica si el password es correcto
+exports.verifyPassword = async (req, res, next) => {
+  const { url } = req.params;
+
+  // Obtener el enlace
+  const link = await Links.findOne({ url });
+
+  // Verificar el password
+  const { password } = req.body;
+
+  if (bcrypt.compareSync(password, link.password)) {
+    // Permitir al usuario descargar el archivo
+    next();
+  } else {
+    const error = new Error("Incorrect Password");
+    res.status(404).json({ msg: error.message });
+  }
 };
 
 // Obtener el enlace
@@ -91,5 +110,5 @@ exports.getLink = async (req, res, next) => {
   }
 
   // Si el enlace existe
-  res.json({ file: link.name });
+  res.json({ file: link.name, password: false });
 };

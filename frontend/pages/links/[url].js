@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import clientAxios from "../../config/axios";
+import uploadContext from "../../context/upload/uploadContext";
+import Alert from "../../components/Alert";
 
 // Los props estáticos van a ser la respuesta que vamos a obtener.
 //Ejemplo: Visito una url y obtenemos el registro de ese link de la bd
@@ -46,10 +48,23 @@ export async function getSeverSidePaths() {
 
 const Links = ({ link }) => {
   const [passwordAvailable, setPasswordAvailable] = useState(link.password);
+  const [password, setPassword] = useState("");
+  const [fileLink, setFileLink] = useState(link.file);
 
-  const verifyPassword = (e) => {
+  const { showAlert, msg_file } = useContext(uploadContext);
+
+  const verifyPassword = async (e) => {
     e.preventDefault();
 
+    try {
+      const { data } = await clientAxios.post(`/api/links/${link.url}`, {
+        password,
+      });
+      setPasswordAvailable(data.password);
+      setFileLink(data.file);
+    } catch (err) {
+      showAlert(err.response.data.msg);
+    }
   };
   return (
     <>
@@ -58,6 +73,9 @@ const Links = ({ link }) => {
           <p className="text-center">
             This link is protected by a password, please enter it below
           </p>
+
+          {msg_file && <Alert message={msg_file} />}
+
           <div className="flex justify-center mt-5">
             <div className="w-full max-w-lg">
               <form
@@ -76,6 +94,8 @@ const Links = ({ link }) => {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="passowrd"
                     placeholder="Link Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
@@ -95,7 +115,7 @@ const Links = ({ link }) => {
           </h1>
           <div className="flex items-center justify-center mt-10">
             <a
-              href={`${process.env.backendURL}/api/files/${link.file}`}
+              href={`${process.env.backendURL}/api/files/${fileLink}`}
               className="bg-red-500 text-center px-10 py-3 rounded uppercase font-bold text-white cursor-pointer"
             >
               Here
