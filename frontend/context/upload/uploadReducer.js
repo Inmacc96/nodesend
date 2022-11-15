@@ -6,6 +6,7 @@ import {
   UPLOAD_FILE_ERROR,
   CREATE_LINK_SUCCESS,
   CREATE_LINK_ERROR,
+  CLEAN_STATE
 } from "../../types";
 
 const uploadReducer = (state, action) => {
@@ -42,6 +43,19 @@ const uploadReducer = (state, action) => {
         ...state,
         url: action.payload,
       };
+
+      case CLEAN_STATE:
+        return {
+          ...state,
+          msg_file: null,
+          name: "",
+          name_original: "",
+          loading: null,
+          downloads: 1,
+          password: "",
+          author: null,
+          url: "",
+        }
 
     default:
       return state;

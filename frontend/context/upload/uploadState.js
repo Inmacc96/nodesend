@@ -10,6 +10,7 @@ import {
   UPLOAD_FILE_ERROR,
   CREATE_LINK_SUCCESS,
   CREATE_LINK_ERROR,
+  CLEAN_STATE,
 } from "../../types";
 
 const UploadState = ({ children }) => {
@@ -71,6 +72,10 @@ const UploadState = ({ children }) => {
     }
   };
 
+  const cleanState = () => {
+    dispatch({ type: "CLEAN_STATE" });
+  };
+
   return (
     <uploadContext.Provider
       value={{
@@ -85,6 +90,7 @@ const UploadState = ({ children }) => {
         showAlert,
         uploadFiles,
         createLink,
+        cleanState,
       }}
     >
       {children}
