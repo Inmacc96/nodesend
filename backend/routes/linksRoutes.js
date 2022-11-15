@@ -16,6 +16,6 @@ router.post(
 
 router.get("/", linksController.getAllLinks);
 
-router.get("/:url", linksController.getLink);
+router.get("/:url", linksController.checkPassword, linksController.getLink);
 
 module.exports = router;
