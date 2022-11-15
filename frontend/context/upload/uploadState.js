@@ -11,6 +11,7 @@ import {
   CREATE_LINK_SUCCESS,
   CREATE_LINK_ERROR,
   CLEAN_STATE,
+  SAVE_PASSWORD,
 } from "../../types";
 
 const UploadState = ({ children }) => {
@@ -76,6 +77,10 @@ const UploadState = ({ children }) => {
     dispatch({ type: "CLEAN_STATE" });
   };
 
+  const savePassword = (password) => {
+    dispatch({ type: "SAVE_PASSWORD", payload: password });
+  };
+
   return (
     <uploadContext.Provider
       value={{
@@ -91,6 +96,7 @@ const UploadState = ({ children }) => {
         uploadFiles,
         createLink,
         cleanState,
+        savePassword
       }}
     >
       {children}

@@ -6,7 +6,8 @@ import {
   UPLOAD_FILE_ERROR,
   CREATE_LINK_SUCCESS,
   CREATE_LINK_ERROR,
-  CLEAN_STATE
+  CLEAN_STATE,
+  SAVE_PASSWORD,
 } from "../../types";
 
 const uploadReducer = (state, action) => {
@@ -44,19 +45,24 @@ const uploadReducer = (state, action) => {
         url: action.payload,
       };
 
-      case CLEAN_STATE:
-        return {
-          ...state,
-          msg_file: null,
-          name: "",
-          name_original: "",
-          loading: null,
-          downloads: 1,
-          password: "",
-          author: null,
-          url: "",
-        }
+    case CLEAN_STATE:
+      return {
+        ...state,
+        msg_file: null,
+        name: "",
+        name_original: "",
+        loading: null,
+        downloads: 1,
+        password: "",
+        author: null,
+        url: "",
+      };
 
+    case SAVE_PASSWORD:
+      return {
+        ...state,
+        password: action.payload,
+      };
     default:
       return state;
   }
