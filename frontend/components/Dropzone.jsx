@@ -1,10 +1,15 @@
 import { useCallback, useContext } from "react";
 import { useDropzone } from "react-dropzone";
+import authContext from "../context/auth/authContext";
 import uploadContext from "../context/upload/uploadContext";
 
 const Dropzone = () => {
-  // Context UploadContext
-  const { showAlert, uploadFiles, loading, createLink } = useContext(uploadContext);
+  // Context uploadContext
+  const { showAlert, uploadFiles, loading, createLink } =
+    useContext(uploadContext);
+
+  // Context authContext
+  const { isAuth, user } = useContext(authContext);
 
   const onDropRejected = () => {
     showAlert(
@@ -50,6 +55,8 @@ const Dropzone = () => {
               </li>
             ))}
           </ul>
+
+          {isAuth ? <p>Is authenticated</p> : ""}
 
           {loading ? (
             <p className="my-10 text-center text-gray-600">Uploading file...</p>
