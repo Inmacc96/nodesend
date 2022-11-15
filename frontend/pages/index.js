@@ -13,7 +13,12 @@ const Home = () => {
   const { msg_file, url } = useContext(uploadContext);
 
   useEffect(() => {
-    getAuthenticatedUser();
+    // Obtener el usuario autenticado si existen un token
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      getAuthenticatedUser();
+    }
   }, []);
 
   return (
@@ -27,10 +32,16 @@ const Home = () => {
             {`${process.env.frontendURL}/links/${url}`}
           </p>
           <button
-              type="button"
-              className="bg-red-500 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold hover:cursor-pointer mt-10"
-              onClick={() => navigator.clipboard.writeText(`${process.env.frontendURL}/links/${url}`)}
-            >Copy Link</button>
+            type="button"
+            className="bg-red-500 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold hover:cursor-pointer mt-10"
+            onClick={() =>
+              navigator.clipboard.writeText(
+                `${process.env.frontendURL}/links/${url}`
+              )
+            }
+          >
+            Copy Link
+          </button>
         </>
       ) : (
         <>
