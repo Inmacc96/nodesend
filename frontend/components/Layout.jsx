@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "./Header";
 
 const Layout = ({ children }) => {
+  console.log(process.env.NEXT_PUBLIC_backendURL);
   return (
     <>
       <Head>
