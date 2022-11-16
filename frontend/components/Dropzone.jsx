@@ -26,6 +26,8 @@ const Dropzone = () => {
     uploadFiles(formData, acceptedFiles[0].path);
   }, []);
 
+  const maxSize = isAuth ? 1024 * 1024 * 10 : 1024 * 1024;
+
   // Extraer contenido de dropzone
   // isDragActive: Detecta cuando el usuario hace el evento de drag
   // onDrop: Funcion que se ejecuta cuando sueltas un archivo
@@ -36,7 +38,7 @@ const Dropzone = () => {
   // Reglas puede ser: Un formato, un tamaño de archivo minimo o máximo
   // La regla en este caso es que el maximo de tamaño es 1mb
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
-    useDropzone({ onDropAccepted, onDropRejected, maxSize: 1024 * 1024 });
+    useDropzone({ onDropAccepted, onDropRejected, maxSize: maxSize });
 
   return (
     <div className="md:flex-1 mb-3 mx-2 mt-16 lg:mt-0 flex flex-col justify-center items-center border-dashed border-gray-400 border-2 bg-gray-100 px-4">
