@@ -36,6 +36,10 @@ app.use(express.json());
 app.use("/static", express.static("uploads"));
 
 // Rutas de la app
+app.get("/ping", function (req, res) {
+  res.json({ status: "OK" });
+});
+
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/links", linksRoutes);
