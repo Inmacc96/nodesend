@@ -115,7 +115,7 @@ const Links = ({ link }) => {
           </h1>
           <div className="flex items-center justify-center mt-10">
             <a
-              href={`${process.env.backendURL}/api/files/${fileLink}`}
+              href={`${process.env.NEXT_PUBLIC_backendURL}/api/files/${fileLink}`}
               className="bg-red-500 text-center px-10 py-3 rounded uppercase font-bold text-white cursor-pointer"
             >
               Here
