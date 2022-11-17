@@ -51,4 +51,7 @@ const port = process.env.PORT || 4000;
 // Arrancar la app
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server running on port ${port}`);
+  console.log("ENV FRONTENDURL", process.env.FRONTEND_URL);
+  console.log("ENV MONGOURL", process.env.MONGO_URI);
+  console.log("ENV JWT SECRET", process.env.JWT_SECRET);
 });
