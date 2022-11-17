@@ -2,7 +2,8 @@ import Head from "next/head";
 import Header from "./Header";
 
 const Layout = ({ children }) => {
-  console.log(process.env.NEXT_PUBLIC_backendURL);
+  console.log("ENV BACKENDURL", process.env.NEXT_PUBLIC_backendURL);
+  console.log("ENV FRONTENDURL", process.env.NEXT_PUBLIC_frontendURL);
   return (
     <>
       <Head>
